@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - EduMatrix</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; }
+        .navbar { background: #2c3e50; color: white; padding: 15px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .navbar .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: bold; }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { color: white; text-decoration: none; }
+        .nav-links a:hover { color: #3498db; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .settings-card { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { margin-bottom: 30px; color: #333; }
+        .setting-section { margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #eee; }
+        .setting-section:last-child { border-bottom: none; }
+        .setting-title { font-size: 18px; font-weight: 600; margin-bottom: 15px; color: #555; }
+        .setting-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #f8f9fa; border-radius: 4px; margin-bottom: 10px; }
+        .setting-label { font-weight: 500; color: #333; }
+        .setting-value { color: #666; }
+        .btn { display: inline-block; padding: 12px 24px; background: #3498db; color: white; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; }
+        .btn:hover { background: #2980b9; }
+        .btn-secondary { background: #95a5a6; }
+        .btn-secondary:hover { background: #7f8c8d; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">🎓 EduMatrix</div>
+            <ul class="nav-links">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/courses">Courses</a></li>
+                <li><a href="/analytics">Analytics</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/settings">Settings</a></li>
+                <li>
+                    <form method="post" action="/logout" style="display:inline;margin:0;">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" style="background:none;border:none;color:white;cursor:pointer;font-size:inherit;font-family:inherit;">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="settings-card">
+            <h1>⚙️ Settings</h1>
+
+            <div class="setting-section">
+                <div class="setting-title">Account Information</div>
+                <div class="setting-item">
+                    <span class="setting-label">Username</span>
+                    <span class="setting-value" th:text="${user.username}">username</span>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Email</span>
+                    <span class="setting-value" th:text="${user.email}">email@example.com</span>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Role</span>
+                    <span class="setting-value" th:text="${user.role}">STUDENT</span>
+                </div>
+            </div>
+
+            <div class="setting-section">
+                <div class="setting-title">Preferences</div>
+                <div class="setting-item">
+                    <span class="setting-label">Theme</span>
+                    <span class="setting-value">Light/Dark (Toggle in navbar)</span>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Language</span>
+                    <span class="setting-value">English</span>
+                </div>
+            </div>
+
+            <div class="setting-section">
+                <div class="setting-title">Notifications</div>
+                <div class="setting-item">
+                    <span class="setting-label">Email Notifications</span>
+                    <span class="setting-value">Enabled</span>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Course Updates</span>
+                    <span class="setting-value">Enabled</span>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+                <a href="/profile" class="btn" style="margin-left: 10px;">View Profile</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

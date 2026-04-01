@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - EduMatrix</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/analytics.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">🎓 EduMatrix</div>
+            <ul class="nav-links">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/courses">Courses</a></li>
+                <li><a href="/analytics">Analytics</a></li>
+                <li>
+                    <form method="post" action="/logout" style="display:inline;margin:0;">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" style="background:none;border:none;color:var(--text-primary);cursor:pointer;font-size:inherit;font-family:inherit;font-weight:500;padding:0;">Logout</button>
+                    </form>
+                </li>
+            </ul>
+            <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Performance Analytics</h1>
+        
+        <div class="analytics-container">
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <div class="metric-value">4.2</div>
+                    <div class="metric-label">Average Grade</div>
+                </div>
+                <div class="metric-box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="metric-value">85%</div>
+                    <div class="metric-label">Completion Rate</div>
+                </div>
+                <div class="metric-box" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="metric-value">120h</div>
+                    <div class="metric-label">Time Spent</div>
+                </div>
+                <div class="metric-box" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                    <div class="metric-value">15</div>
+                    <div class="metric-label">Modules Completed</div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2 class="chart-title">Learning Progress Over Time</h2>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2>Course Performance</h2>
+                <table class="performance-table">
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Progress</th>
+                            <th>Grade</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Web Development</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 90%;"></div>
+                                </div>
+                            </td>
+                            <td>4.5</td>
+                            <td><span class="badge badge-success">Excellent</span></td>
+                        </tr>
+                        <tr>
+                            <td>Java Programming</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%;"></div>
+                                </div>
+                            </td>
+                            <td>4.0</td>
+                            <td><span class="badge badge-success">Good</span></td>
+                        </tr>
+                        <tr>
+                            <td>Data Science</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%;"></div>
+                                </div>
+                            </td>
+                            <td>3.5</td>
+                            <td><span class="badge badge-warning">Average</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/theme-toggle.js}"></script>
+</body>
+</html>

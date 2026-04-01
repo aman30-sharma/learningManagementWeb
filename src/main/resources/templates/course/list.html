@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - EduMatrix</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/course.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">🎓 EduMatrix</div>
+            <ul class="nav-links">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/courses">Courses</a></li>
+                <li><a href="/analytics">Analytics</a></li>
+                <li>
+                    <form method="post" action="/logout" style="display: inline; margin: 0;">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" style="background: none; border: none; color: var(--text-primary); cursor: pointer; font-size: inherit; font-family: inherit; font-weight: 500; padding: 0;">Logout</button>
+                    </form>
+                </li>
+            </ul>
+            <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Available Courses</h1>
+        
+        <div th:if="${courses.isEmpty()}" class="card">
+            <p style="text-align: center; color: var(--text-secondary);">No courses available at the moment.</p>
+        </div>
+        
+        <div class="course-grid">
+            <div th:each="course : ${courses}" class="course-card">
+                <div class="course-thumbnail" th:text="${course.category == 'Programming' ? '💻' : course.category == 'Data Science' ? '📈' : '📚'}">📚</div>
+                <div class="course-content">
+                    <h3 class="course-title" th:text="${course.title}">Course Title</h3>
+                    <div class="course-meta">
+                        <span>⏱️ N/A</span>
+                        <span>👥 0 students</span>
+                    </div>
+                    <p class="course-description" th:text="${course.description != null ? course.description : 'No description available'}">No description</p>
+                    <div class="course-footer">
+                        <span style="font-weight: 600; color: var(--primary-color);" th:text="${course.category != null ? course.category : 'General'}">General</span>
+                        <a th:href="@{/courses/{id}(id=${course.id})}" class="btn btn-primary">View Course</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/theme-toggle.js}"></script>
+    <script>
+        function enrollCourse(courseId) {
+            fetch('/api/enroll', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ courseId: courseId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Successfully enrolled in the course!');
+                    location.reload();
+                } else {
+                    alert(data.message || 'Failed to enroll');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while enrolling');
+            });
+        }
+    </script>
+</body>
+</html>

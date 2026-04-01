@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EduMatrix</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">🎓 EduMatrix</div>
+            <ul class="nav-links">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/courses">Courses</a></li>
+                <li><a href="/analytics">Analytics</a></li>
+                <li>
+                    <form method="post" action="/logout" style="display: inline; margin: 0;">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" style="background: none; border: none; color: var(--text-primary); cursor: pointer; font-size: inherit; font-family: inherit; font-weight: 500; padding: 0;">Logout</button>
+                    </form>
+                </li>
+            </ul>
+            <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard">
+            <aside class="sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="/dashboard" class="active">📊 Dashboard</a></li>
+                    <li><a href="/courses">📚 My Courses</a></li>
+                    <li><a href="/analytics">📈 Analytics</a></li>
+                    <li><a href="/profile">👤 Profile</a></li>
+                    <li><a href="/settings">⚙️ Settings</a></li>
+                </ul>
+            </aside>
+
+            <main class="dashboard-content">
+                <h1>Welcome back, <span th:text="${user.fullName}">Student</span>!</h1>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 th:text="${enrollmentCount}">0</h3>
+                        <p>Enrolled Courses</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>0%</h3>
+                        <p>Average Progress</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>0</h3>
+                        <p>Completed Courses</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>0</h3>
+                        <p>Average Grade</p>
+                    </div>
+                </div>
+
+                <div class="recent-activity card">
+                    <h2>My Courses</h2>
+                    <div th:if="${enrollments.isEmpty()}">
+                        <p style="color: var(--text-secondary);">You haven't enrolled in any courses yet. <a th:href="@{/courses}" style="color: var(--primary-color);">Browse courses</a></p>
+                    </div>
+                    <div th:each="enrollment : ${enrollments}" class="activity-item">
+                        <div class="activity-icon">📚</div>
+                        <div style="flex: 1;">
+                            <strong th:text="${enrollment.course.title}">Course Title</strong>
+                            <div style="margin-top: 8px;">
+                                <div class="progress-bar" style="background: var(--border-color); height: 8px; border-radius: 4px;">
+                                    <div class="progress-fill" th:style="'width: ' + ${enrollment.progress} + '%; background: var(--primary-color); height: 100%; border-radius: 4px; transition: width 0.3s;'"></div>
+                                </div>
+                                <p style="color: var(--text-secondary); font-size: 14px; margin-top: 4px;" th:text="${enrollment.progress} + '% complete'">0% complete</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script th:src="@{/js/theme-toggle.js}"></script>
+    <script th:src="@{/js/activity-tracker.js}"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - EduMatrix</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <style>
+        .register-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .register-card {
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-card card">
+            <h1 style="text-align: center; margin-bottom: 24px;">🎓 EduMatrix</h1>
+            <h2 style="text-align: center; margin-bottom: 32px;">Create Account</h2>
+            
+            <div th:if="${error}" style="background: #fee; border: 1px solid #fcc; color: #c33; padding: 12px; border-radius: 6px; margin-bottom: 20px;" th:text="${error}"></div>
+            <div th:if="${param.registered}" style="background: #efe; border: 1px solid #cfc; color: #363; padding: 12px; border-radius: 6px; margin-bottom: 20px;">Account created successfully! Please login.</div>
+            
+            <form th:action="@{/register}" th:object="${user}" method="post">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" th:field="*{fullName}" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" th:field="*{username}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" th:field="*{email}" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" th:field="*{password}" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" th:field="*{role}" required>
+                        <option value="STUDENT">Student</option>
+                        <option value="INSTRUCTOR">Instructor</option>
+                        <option value="ADMIN">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+            </form>
+            
+            <p style="text-align: center; margin-top: 20px;">
+                Already have an account? <a th:href="@{/login}" style="color: var(--primary-color);">Login</a>
+            </p>
+        </div>
+    </div>
+    <script th:src="@{/js/theme-toggle.js}"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+/* Tablet - 768px */
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .nav-links a, .nav-links button {
+        font-size: 14px;
+    }
+
+    .theme-toggle {
+        position: absolute;
+        right: 20px;
+        top: 16px;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        order: 2;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .sidebar-menu {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0;
+    }
+
+    .sidebar-menu li {
+        list-style: none;
+    }
+
+    .sidebar-menu a {
+        display: inline-block;
+        padding: 8px 14px;
+        background: var(--card-bg);
+        border-radius: 8px;
+        font-size: 13px;
+        text-decoration: none;
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+    }
+
+    .dashboard-content {
+        order: 1;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .course-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .profile-info {
+        grid-template-columns: 1fr;
+    }
+
+    .setting-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
+
+/* Mobile - 480px */
+@media (max-width: 480px) {
+    .container {
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .btn {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .nav-links {
+        gap: 8px;
+    }
+
+    .register-card, .login-card {
+        padding: 20px;
+    }
+
+    .profile-card, .settings-card {
+        padding: 20px;
+    }
+
+    .avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+    }
+
+    .course-card {
+        margin-bottom: 12px;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}
